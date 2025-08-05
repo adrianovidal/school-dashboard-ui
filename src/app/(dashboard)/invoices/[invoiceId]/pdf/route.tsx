@@ -26,7 +26,6 @@ export async function GET(request:Request,{params}:{params:{invoiceId:string}}) 
 const styles = StyleSheet.create({
     page: {
         flexDirection: 'column',
-        backgroundColor: '#f3f4f6', // Cor de fundo semelhante ao bg-gray-100
         padding: 40,
         // fontFamily: 'Inter', // Usar a fonte registrada
     },
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     },
     invoiceNo: {
         fontSize: 18,
-        color: '#4b5563', // text-gray-600
+        color: '#ef4444', // text-gray-600
         marginTop: 4,
     },
     date: {
@@ -62,14 +61,14 @@ const styles = StyleSheet.create({
     },
     clientInfo: {
         display: 'flex',
-        flexDirection: 'row', // Para alinhar lado a lado em telas maiores
+        flexDirection: 'row', 
         justifyContent: 'space-between',
         marginBottom: 32,
         color: '#374151', // text-gray-700
     },
     clientInfoColumn: {
         flexDirection: 'column',
-        width: '48%', // Ajuste conforme necessário
+        width: '48%',
     },
     clientInfoLabel: {
         fontWeight: 'bold', // '600'
@@ -80,31 +79,26 @@ const styles = StyleSheet.create({
     },
     tableWrapper: {
         marginBottom: 32,
-        borderWidth: 1,
-        borderColor: '#e5e7eb', // border-gray-200
-        borderRadius: 8, // rounded-lg
         overflow: 'hidden',
+        flexDirection: 'row',
+        maxWidth: 500,
     },
     table: {
-        // width: 'auto',
-        backgroundColor: '#ffffff', // bg-white
+        width: 500,
+        borderBottom: '1px solid #000',
+        maxWidth: 500,
     },
     tableHeader: {
         flexDirection: 'row',
-        backgroundColor: '#f9fafb', // bg-gray-50
     },
     tableRow: {
         flexDirection: 'row',
-        borderBottomWidth: 1,
-        borderBottomColor: '#e5e7eb', // border-gray-200
     },
     tableCell: {
         paddingVertical: 12,
         paddingHorizontal: 16,
         fontSize: 12,
-        color: '#374151', // text-gray-700
-        flexGrow: 1,
-        width: 1,
+        color: '#374151',
     },
     tableHeaderCell: {
         paddingVertical: 12,
@@ -114,8 +108,6 @@ const styles = StyleSheet.create({
         color: '#6b7280', // text-gray-500
         textTransform: 'uppercase',
         letterSpacing: 0.5,
-        flexGrow: 1,
-        width: 1
     },
     rightAlign: {
         textAlign: 'right',
@@ -126,20 +118,19 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     subtotalBox: {
-        backgroundColor: '#ef4444', // bg-red-500
-        color: '#ffffff', // text-white
         paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 8, // rounded-lg
-        fontSize: 18,
-        fontWeight: 'bold', // '700'
+        flexDirection: 'row',
+        fontSize: 12,
+        fontWeight: 'bold',
+        width: 300,
+        justifyContent: 'space-between' // '700'
     },
     subtotalAmount: {
-        marginLeft: 16,
+        color: '#ef4444',
     },
     bankInfo: {
         display: 'flex',
-        flexDirection: 'row', // Para alinhar lado a lado em telas maiores
+        flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 32,
         color: '#374151', // text-gray-700
@@ -149,43 +140,56 @@ const styles = StyleSheet.create({
         width: '48%',
     },
     footerSection: {
+        display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'flex-end',
-        color: '#374151', // text-gray-700
-        marginTop: 48,
-        paddingTop: 24,
-        borderTopWidth: 1,
-        borderTopColor: '#e5e7eb', // border-gray-200
+        alignItems: 'center',
+        color: '#374151',
+        marginTop: '3rem',
+        paddingTop: '1.5rem',
+        borderTop: '1px solid #000',
+        width: 515
     },
     footerText: {
-        fontSize: 14,
-        marginBottom: 4,
+        margin: '10 0 0',
+        fontSize: '10px',
+        paddingTop: '1.5rem',
+        marginBottom: '0.25rem',
+    },
+    payment: {
+        position: 'absolute',
+        bottom: 70,
     },
     paymentTo: {
         fontWeight: 'bold', // '600'
         color: '#1f2937', // text-gray-800
     },
+    paymentText: {
+        margin: '0 0 5px',
+        fontSize: '10px',
+        paddingTop: '1.5rem',
+        marginBottom: '0.25rem',
+    },
     contactInfo: {
-        textAlign: 'right',
+        marginTop: '1.5rem',
     },
     contactSpan: {
         marginLeft: 8,
     },
     thankyou: {
-        fontSize: 18,
-        fontWeight: 'bold', // '700'
-        color: '#ef4444', // text-red-500
-        marginTop: 8,
+        fontSize: '10px',
+        fontWeight: 700,
+        color: '#ef4444',
+        margin: '10 0 0',
     },
     pageNumber: {
         position: 'absolute',
-        fontSize: 12,
+        // fontSize: 12,
         bottom: 30,
-        left: 0,
-        right: 0,
-        textAlign: 'center',
-        color: 'grey',
+        // left: 0,
+        // right: 0,
+        // textAlign: 'center',
+        // color: 'grey',
     },
 });
 
@@ -209,7 +213,7 @@ interface InvoiceProps {
 
 const Invoice = ({ invoice }: InvoiceProps) => {
   return (
-    <Document title='The Creators Base'>
+    <Document title={invoice.customer.name}>
         <Page size="A4" style={styles.page}>
             {/* <View style={styles.invoiceContainer}> */}
                 <View style={styles.header}>
@@ -260,7 +264,8 @@ const Invoice = ({ invoice }: InvoiceProps) => {
 
                 <View style={styles.subtotalSection}>
                     <View style={styles.subtotalBox}>
-                        <Text>SUBTOTAL <Text style={styles.subtotalAmount}>R$ { invoice.subtotal }</Text></Text>
+                        <Text>SUBTOTAL</Text>
+                        <Text style={styles.subtotalAmount}>R$ { invoice.subtotal }</Text>
                     </View>
                 </View>
 
@@ -274,22 +279,20 @@ const Invoice = ({ invoice }: InvoiceProps) => {
                     </View>
                 </View>
 
-                <View style={styles.footerSection}>
-                    <View>
-                        <Text style={styles.footerText}>Please make payment to</Text>
-                        <Text style={[styles.footerText, styles.paymentTo]}>{ invoice.customer.name }.</Text>
-                        <Text style={styles.footerText}>201 Blvd, New York 67546</Text>
-                    </View>
-                    <View style={styles.contactInfo}>
-                        <Text style={styles.footerText}>
-                            <Text style={styles.paymentTo}>{ invoice.phoneNumber }</Text> <Text style={styles.contactSpan}>{ invoice.customer.email }</Text>
-                        </Text>
-                        <Text style={styles.footerText}>www.bankinfo.com</Text>
-                        <Text style={styles.thankyou}>THANKYOU!</Text>
-                    </View>
+                <View style={styles.payment}>
+                    <Text style={styles.paymentText}>Please make payment to</Text>
+                    <Text style={[styles.paymentText, styles.paymentTo]}>{ invoice.customer.name }.</Text>
+                    <Text style={styles.paymentText}>201 Blvd, New York 67546</Text>
+                </View>
+
+                <View style={[styles.footerSection, styles.pageNumber]}>
+                    <Text style={styles.footerText}>{ invoice.phoneNumber }</Text>
+                    <Text style={styles.footerText}>{ invoice.customer.email }</Text>
+                    <Text style={styles.footerText}>www.bankinfo.com</Text>
+                    <Text style={styles.thankyou}>THANKYOU!</Text>
                 </View>
             {/* </View> */}
-            <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (`${pageNumber} / ${totalPages}`)} fixed />
+            {/* <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (`${pageNumber} / ${totalPages}`)} fixed /> */}
         </Page>
     </Document>
   )
