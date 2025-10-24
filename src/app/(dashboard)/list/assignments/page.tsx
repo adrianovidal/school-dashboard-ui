@@ -77,7 +77,7 @@ const AssignmentsListPage = () => {
                 </div>
             </div>
             <Table columns={columns} renderRow={renderRow} data={assignmentsData}/>
-            <Pagination />
+            <Pagination page={1} count={1} />
         </div>
     )
 }
