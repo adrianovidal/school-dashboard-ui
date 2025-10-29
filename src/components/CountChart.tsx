@@ -4,22 +4,22 @@ import { RadialBarChart, RadialBar, ResponsiveContainer } from "recharts"
 
 const CountChart = ({boys, girls}:{boys:number, girls:number}) => {
     const data = [
-    {
-        name: "Total",
-        count: boys+girls,
-        fill: "white",
-    },
-    {
-        name: "Girls",
-        count: girls,
-        fill: "#FAE27C",
-    },
-    {
-        name: "Boys",
-        count: boys,
-        fill: "#C3EBFA",
-    },
-]
+        {
+            name: "Total",
+            count: boys+girls,
+            fill: "white",
+        },
+        {
+            name: "Girls",
+            count: girls,
+            fill: "#FAE27C",
+        },
+        {
+            name: "Boys",
+            count: boys,
+            fill: "#C3EBFA",
+        },
+    ]
 
     return (
         <div className="relative w-full h-[75%]">

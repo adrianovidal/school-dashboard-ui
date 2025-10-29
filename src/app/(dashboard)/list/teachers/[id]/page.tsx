@@ -1,13 +1,14 @@
 import Announcements from "@/components/Announcements"
-import BigCalendar from "@/components/BigCalendar"
+import BigCalendarContainer from "@/components/containers/BigCalendarContainer"
 import FormModal from "@/components/FormModal"
 import Performance from "@/components/Performance"
+import { currentUser } from "@clerk/nextjs/server"
 import Image from "next/image"
 import Link from "next/link"
-import { email } from "zod"
-import { id } from "zod/locales"
 
-const SingleTeacherPage = () => {
+const SingleTeacherPage = async () => {
+    const user = await currentUser()
+
     return (
         <div className="flex-1 p-4 flex flex-col gap-4 xl:flex-row">
             <div className="w-full xl:w-2/3">
@@ -88,7 +89,7 @@ const SingleTeacherPage = () => {
                 </div>
                 <div className="mt-4 bg-white rounded-md p-4 h-[800px]">
                     <h1>Teacher&apos;s Schedule</h1>
-                    <BigCalendar />
+                    <BigCalendarContainer type="teacherId" id={user?.id!} />
                 </div>
             </div>
             <div className="w-full xl:w-1/3 flex flex-col gap-4">

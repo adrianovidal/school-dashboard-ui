@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import InputField from "../InputField";
+import { Dispatch, SetStateAction } from "react";
 
 const schema = z.object({
   username: z.string()
@@ -17,9 +18,11 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const ParentForm = ({type, data}:{
+const ParentForm = ({type, data, setOpen, relatedData}:{
     type: "create" | "update";
-    data: any
+    data: any,
+    setOpen: Dispatch<SetStateAction<boolean>>;
+    relatedData?: any
 }) => {
     const {
         register,
